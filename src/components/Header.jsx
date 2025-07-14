@@ -25,12 +25,12 @@ const Header = ({ locationData, networkInfo, isProcessing, onClearCache }) => {
   return (
     <div className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-6">
-          <div>
+        <div className="flex justify-between items-center py-6 md:flex-row flex-col">
+          <div className="md:w-1/2">
             <h1 className="text-3xl font-bold text-gray-900">FinanceTracker +</h1>
             <p className="text-sm text-gray-600 mt-1">Smart Bill Management & Analytics</p>
           </div>
-          <div className="flex items-center space-x-6">
+          <div className="flex flex-row md:flex-row-reverse justify-between items-center space-x-6 md:space-x-0 md:space-y-6 mt-6 md:mt-0">
             <div className="flex items-center space-x-2">
               <MapPin className="w-4 h-4 text-gray-500" />
               <span className="text-sm font-medium">{locationData.city}, {locationData.country}</span>
@@ -51,7 +51,7 @@ const Header = ({ locationData, networkInfo, isProcessing, onClearCache }) => {
             <div className="relative">
               <button
                 onClick={handleClearCache}
-                className={`flex items-center space-x-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                className={`mr-7 flex items-center space-x-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                   showConfirm 
                     ? 'bg-red-600 text-white hover:bg-red-700' 
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
