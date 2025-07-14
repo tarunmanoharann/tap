@@ -1,7 +1,20 @@
 import React from 'react';
-import { MapPin, Wifi, WifiOff } from 'lucide-react';
+import { MapPin, Wifi, WifiOff, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 
-const Header = ({ locationData, networkInfo, isProcessing }) => {
+const Header = ({ locationData, networkInfo, isProcessing, onClearCache }) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+  
+  const handleClearCache = () => {
+    if (showConfirm) {
+      onClearCache();
+      setShowConfirm(false);
+    } else {
+      setShowConfirm(true);
+      // Hide the confirmation after 3 seconds if not clicked
+      setTimeout(() => setShowConfirm(false), 3000);
+    }
+  };
   const getNetworkStatusColor = () => {
     if (!networkInfo.isOnline) return 'text-red-600';
     if (networkInfo.effectiveType === '4g') return 'text-green-600';
@@ -34,6 +47,26 @@ const Header = ({ locationData, networkInfo, isProcessing }) => {
                 <span className="text-sm text-gray-600">Processing...</span>
               </div>
             )}
+            
+            <div className="relative">
+              <button
+                onClick={handleClearCache}
+                className={`flex items-center space-x-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  showConfirm 
+                    ? 'bg-red-600 text-white hover:bg-red-700' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+                title={showConfirm ? 'Click again to confirm' : 'Clear all bills'}
+              >
+                <Trash2 className="w-4 h-4" />
+                <span>{showConfirm ? 'Confirm Clear' : 'Clear Cache'}</span>
+              </button>
+              {showConfirm && (
+                <div className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg py-1 z-10 text-xs text-gray-500 px-2">
+                  This will delete all your bills
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
