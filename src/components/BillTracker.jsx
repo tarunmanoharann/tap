@@ -6,7 +6,16 @@ import BillList from './BillList';
 import AnalyticsChart from './AnalyticsChart';
 
 const BillTracker = () => {
-  const [bills, setBills] = useState([]);
+  // Load bills from localStorage on initial render
+  const [bills, setBills] = useState(() => {
+    const savedBills = localStorage.getItem('bills');
+    return savedBills ? JSON.parse(savedBills) : [];
+  });
+  
+  // Save bills to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('bills', JSON.stringify(bills));
+  }, [bills]);
   const [networkInfo, setNetworkInfo] = useState({
     isOnline: navigator.onLine,
     effectiveType: '4g',
@@ -186,7 +195,12 @@ const BillTracker = () => {
       <Header 
         locationData={locationData} 
         networkInfo={networkInfo} 
-        isProcessing={isProcessing} 
+        isProcessing={isProcessing}
+        onClearCache={() => {
+          localStorage.removeItem('bills');
+          setBills([]);
+          setBillHistory([]);
+        }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
