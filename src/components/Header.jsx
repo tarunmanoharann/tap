@@ -31,7 +31,7 @@ const Header = ({ locationData, networkInfo, isProcessing, onClearCache }) => {
             <p className="text-sm text-gray-600 mt-1">Smart Bill Management & Analytics</p>
           </div>
           <div className="flex flex-row md:flex-row-reverse justify-between items-center space-x-6 md:space-x-0 md:space-y-6 mt-6 md:mt-0">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 ">
               <MapPin className="w-4 h-4 text-gray-500" />
               <span className="text-sm font-medium">{locationData.city}, {locationData.country}</span>
             </div>
